@@ -40,8 +40,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
 				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
+					<source>1.7</source>
+					<target>1.7</target>
 		            <encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
