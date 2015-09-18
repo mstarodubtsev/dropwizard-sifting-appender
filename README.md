@@ -6,7 +6,7 @@
 Maven:
 ```xml
 <dependency>
-  <groupId>org.mvstar.dw.logback</groupId>
+  <groupId>com.github.mstarodubtsev.dropwizard</groupId>
   <artifactId>dropwizard-sifting-appender</artifactId>
   <version>0.0.4</version>
 </dependency>

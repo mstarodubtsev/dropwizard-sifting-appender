@@ -1,4 +1,4 @@
-package org.mvstar.dw.logback;
+package com.github.mstarodubtsev.dropwizard;
 
 import java.util.TimeZone;
 
@@ -24,10 +24,14 @@ import ch.qos.logback.core.joran.spi.JoranException;
 import ch.qos.logback.core.sift.AppenderFactory;
 
 /**
- * An {@link AppenderFactory} implementation which provides an appender that writes events to the console.
- * <p/>
+ * An {@link AppenderFactory} implementation which provides an appender that splits events to separate log files depending on MDC context.
  * <b>Configuration Parameters:</b>
- * <table>
+ * <table summary="">
+ *     <tr>
+ *         <th class="head">Name</th>
+ *         <th class="head">Default</th>
+ *         <th class="head">Description</th>
+ *     </tr>
  *     <tr>
  *         <td>Name</td>
  *         <td>Default</td>
