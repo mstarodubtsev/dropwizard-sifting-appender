@@ -3,7 +3,7 @@
 	<groupId>com.github.mstarodubtsev.dropwizard</groupId>
 	<artifactId>dropwizard-sifting-appender</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.7-SNAPSHOT</version>
+	<version>0.0.7</version>
 
 	<name>dropwizard-sifting-appender</name>
 	<description />
