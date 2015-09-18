@@ -1,1 +1,1 @@
-org.mvstar.dw.logback.SiftingAppenderFactory
+com.github.mstarodubtsev.dropwizard.SiftingAppenderFactory
