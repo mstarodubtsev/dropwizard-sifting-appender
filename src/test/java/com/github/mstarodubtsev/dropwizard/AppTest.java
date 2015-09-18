@@ -1,4 +1,4 @@
-package org.mvstar.dw.logback;
+package com.github.mstarodubtsev.dropwizard;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
