@@ -3,7 +3,7 @@
 	<groupId>com.github.mstarodubtsev.dropwizard</groupId>
 	<artifactId>dropwizard-sifting-appender</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.6-SNAPSHOT</version>
+	<version>0.0.6</version>
 
 	<name>dropwizard-sifting-appender</name>
 	<description />
@@ -98,13 +98,6 @@
 			
 		</plugins>
 	</build>
-	
-    <distributionManagement>
-        <repository>
-            <id>nexus-site</id>
-            <url>http://central_nexus/server</url>
-        </repository>
-    </distributionManagement>	
 	
     <profiles>
         <profile>
