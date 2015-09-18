@@ -13,8 +13,7 @@ Maven:
 ```
 
 ## Usage
-You must configure dropwizard to use these appenders in your application.yml file:
-
+You must configure dropwizard to use this appender in your application.yml file:
 Example config:
 ```yaml
 logging:
@@ -42,6 +41,7 @@ example with slf4j:
 class Test {
 	public static void main(String[] args) {
 		org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(Test.class);
+		MDC.put("logfileName", Thread.currentThread().getName());
 		log.info("test");
 	}
 }
@@ -49,17 +49,15 @@ class Test {
 
 or just using Lombok annotation:
 ```java
-
 @Slf4j
 class Test {
 	public static void main(String[] args) {
+		MDC.put("logfileName", Thread.currentThread().getName());
 		log.info("test");
 	}
 }
 ```
 
-
 ## License
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the Apache License, Version 2.0.
