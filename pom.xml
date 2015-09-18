@@ -48,5 +48,11 @@
 		</plugins>
 	</build>
 	
+    <distributionManagement>
+        <repository>
+            <id>nexus-site</id>
+            <url>http://central_nexus/server</url>
+        </repository>
+    </distributionManagement>	
 	
 </project>
