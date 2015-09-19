@@ -6,4 +6,5 @@
 <suppressions>
     <suppress checks="NewlineAtEndOfFile" files=".java" />
     <suppress checks="NewlineAtEndOfFile" files=".properties" />
+    <suppress checks="JavadocPackage" files="[\\/]src[\\/]test[\\/]"/>
 </suppressions>

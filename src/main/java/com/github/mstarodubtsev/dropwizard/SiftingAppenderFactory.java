@@ -24,7 +24,8 @@ import ch.qos.logback.core.joran.spi.JoranException;
 import ch.qos.logback.core.sift.AppenderFactory;
 
 /**
- * An {@link AppenderFactory} implementation which provides an appender that splits events to separate log files depending on MDC context.
+ * An {@link AppenderFactory} implementation which provides an appender that splits events to separate
+ * log files depending on MDC context.
  * <b>Configuration Parameters:</b>
  * <table summary="">
  *     <tr>
@@ -77,87 +78,136 @@ import ch.qos.logback.core.sift.AppenderFactory;
  */
 @JsonTypeName("sift")
 public class SiftingAppenderFactory extends AbstractAppenderFactory {
+    /**
+     * Discriminator key for sift events.
+     */
     @NotNull
     private String discriminatorKey;
 
+    /**
+     * Discriminator default value.
+     */
     @NotNull
     private String discriminatorDefaultValue;
 
+    /**
+     * The Logback pattern with which events will be formatted.
+     */
     @NotNull
     private String messagePattern;
 
+    /**
+     * The time zone to which event timestamps will be converted.
+     */
     @NotNull
     private TimeZone timeZone = TimeZone.getTimeZone("UTC");
 
-    public String getDiscriminatorKey() {
+    /**
+     * Discriminator key getter.
+     * @return Discriminator key
+     */
+    public final String getDiscriminatorKey() {
         return discriminatorKey;
     }
 
-    public void setDiscriminatorKey(String discriminatorKey) {
+    /**
+     * Discriminator key setter.
+     * @param discriminatorKey Discriminator key
+     */
+    public final void setDiscriminatorKey(final String discriminatorKey) {
         this.discriminatorKey = discriminatorKey;
     }
 
-    public String getDiscriminatorDefaultValue() {
+    /**
+     * Discriminator default value getter.
+     * @return Discriminator default value
+     */
+    public final String getDiscriminatorDefaultValue() {
         return discriminatorDefaultValue;
     }
 
-    public void setDiscriminatorDefaultValue(String discriminatorDefaultValue) {
+    /**
+     * Discriminator default value setter.
+     * @param discriminatorDefaultValue Discriminator default value
+     */
+    public final void setDiscriminatorDefaultValue(final String discriminatorDefaultValue) {
         this.discriminatorDefaultValue = discriminatorDefaultValue;
     }
 
-    public String getMessagePattern() {
+    /**
+     * The message pattern getter.
+     * @return Message pattern
+     */
+    public final String getMessagePattern() {
         return messagePattern;
     }
 
-    public void setMessagePattern(String messagePattern) {
+    /**
+     * The message pattern setter.
+     * @param messagePattern Message pattern
+     */
+    public final void setMessagePattern(final String messagePattern) {
         this.messagePattern = messagePattern;
     }
 
+    /**
+     * Timezone getter.
+     * @return Timezone
+     */
     @JsonProperty
-    public TimeZone getTimeZone() {
+    public final TimeZone getTimeZone() {
         return timeZone;
     }
 
+    /**
+     * Timezone setter.
+     * @param timeZone Timezone
+     */
     @JsonProperty
-    public void setTimeZone(TimeZone timeZone) {
+    public final void setTimeZone(final TimeZone timeZone) {
         this.timeZone = timeZone;
     }
 
+    /**
+     * Check for correct parameters configuration.
+     * @return is configuration valid
+     */
     @JsonIgnore
     @ValidationMethod(message = "some message")
-    public boolean isValidArchiveConfiguration() {
+    public final boolean isValidArchiveConfiguration() {
         return true;
     }
 
+    /**
+     * Constructor.
+     */
     @Override
-    public Appender<ILoggingEvent> build(LoggerContext context, String applicationName, Layout<ILoggingEvent> layout) {
+    public final Appender<ILoggingEvent> build(final LoggerContext context, final String applicationName, final Layout<ILoggingEvent> layout) {
         final SiftingAppender siftingAppender = new SiftingAppender();
         siftingAppender.setName("sift-appender");
         siftingAppender.setContext(context);
         addThresholdFilter(siftingAppender, threshold);
-        
+
         MDCBasedDiscriminator mdcBasedDiscriminator = new MDCBasedDiscriminator();
         mdcBasedDiscriminator.setKey(discriminatorKey);
         mdcBasedDiscriminator.setDefaultValue(discriminatorDefaultValue);
         mdcBasedDiscriminator.start();
         siftingAppender.setDiscriminator(mdcBasedDiscriminator);
-        
+
         siftingAppender.setAppenderFactory(new AppenderFactory<ILoggingEvent>() {
 
             @Override
-            public Appender<ILoggingEvent> buildAppender(Context context, String discriminatingValue) throws JoranException {
+            public Appender<ILoggingEvent> buildAppender(final Context context, final String discriminatingValue) throws JoranException {
                 FileAppender<ILoggingEvent> appender = new FileAppender<>();
                 appender.setAppend(true);
-                
+
                 appender.setName("FILE-" + discriminatingValue);
                 appender.setContext(context);
                 appender.setFile("log-" + discriminatingValue + ".log");
                 appender.setPrudent(false);
-                //appender.setLayout(layout == null ? buildLayout(context, timeZone) : layout);
 
                 PatternLayoutEncoder pl = new PatternLayoutEncoder();
                 pl.setContext(context);
-                //pl.setPattern("%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}: %msg%n");
                 pl.setPattern(messagePattern);
                 pl.start();
                 appender.setEncoder(pl);

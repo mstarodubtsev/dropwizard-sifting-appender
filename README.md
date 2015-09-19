@@ -13,8 +13,7 @@ Maven:
 ```
 
 ## Usage
-You must configure dropwizard to use this appender in your application.yml file:
-Example config:
+You must configure dropwizard to use this appender in your application.yml file. Example config:
 ```yaml
 logging:
   appenders:
